@@ -1,0 +1,1691 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Upload Member List | ADNIC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            font-family: "Google Sans", sans-serif;
+            background: #f4f6fa;
+            color: #1e293b;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 36px 20px 56px;
+        }
+
+        /* Page Header */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .page-title-group h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #18355e;
+            letter-spacing: -0.3px;
+        }
+
+        .page-title-group p {
+            font-size: 13.5px;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            color: #18355e;
+            font-size: 12.5px;
+            font-weight: 600;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+        }
+
+        .step-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #5c78ff;
+        }
+
+        /* Card Component */
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(24, 53, 94, 0.06);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .card > .head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 22px;
+            background: linear-gradient(45deg, #18355e, #5c78ff);
+            color: #ffffff;
+        }
+
+        .card > .head h2 {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .card > .head h2 svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2.2;
+            opacity: 0.95;
+        }
+
+        .head-badge {
+            font-size: 12px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+        }
+
+        .card .body {
+            padding: 22px;
+        }
+
+        /* Guidelines */
+        .bullets {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px 28px;
+            list-style: none;
+        }
+
+        .bullets li {
+            position: relative;
+            padding-left: 22px;
+            color: #334155;
+            font-size: 12.5px;
+            line-height: 1.55;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .bullets li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #5c78ff;
+        }
+
+        .bullets a {
+            color: #5c78ff;
+            text-decoration: none;
+            font-weight: 500;
+            white-space: nowrap;
+            margin: 0 4px;
+            border-bottom: 1px solid #c7d6fc;
+            transition: color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .bullets a:hover {
+            color: #18355e;
+            border-color: #18355e;
+        }
+
+        .note-banner {
+            margin-top: 18px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12.5px;
+            color: #dc2626;
+            font-weight: 500;
+        }
+
+        .note-banner svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        /* Integrated Unified Upload Section */
+        .upload-integrated {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px 24px 24px;
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .upload-integrated:hover,
+        .upload-integrated.drag-over {
+            border-color: #5c78ff;
+            background: #eff3ff;
+        }
+
+        .upload-cloud-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #eff3ff;
+            color: #5c78ff;
+            display: grid;
+            place-items: center;
+            margin-bottom: 12px;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .upload-integrated:hover .upload-cloud-icon {
+            transform: translateY(-2px);
+            background: #e0e9ff;
+        }
+
+        .upload-cloud-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .upload-drop-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #18355e;
+            margin-bottom: 4px;
+        }
+
+        .upload-drop-subtitle {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 14px;
+        }
+
+        .file-input-hidden {
+            display: none;
+        }
+
+        .selected-file-chip {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 999px;
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+        }
+
+        .selected-file-chip.active {
+            display: inline-flex;
+            background: #ecfdf5;
+            border-color: #bbf7d0;
+            color: #15803d;
+            font-weight: 500;
+        }
+
+        .selected-file-chip svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        .file-chip-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 260px;
+        }
+
+        .btn-remove-file {
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            padding: 2px;
+            border-radius: 4px;
+            display: inline-flex;
+            line-height: 1;
+        }
+
+        .btn-remove-file:hover {
+            color: #dc2626;
+            background: #fef2f2;
+        }
+
+        .upload-bottom-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .upload-bottom-actions .btn {
+            min-width: 130px;
+        }
+
+        /* Buttons */
+        .btn {
+            appearance: none;
+            border: 0;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            padding: 9px 18px;
+            font-size: 13px;
+            border-radius: 10px;
+            color: #fff;
+            background: linear-gradient(45deg, #18355e, #5c78ff);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.18s ease, filter 0.18s ease, box-shadow 0.18s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.05);
+            box-shadow: 0 4px 14px rgba(24, 53, 94, 0.2);
+        }
+
+        .btn.secondary {
+            background: #ffffff;
+            color: #18355e;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+        }
+
+        .btn.secondary:hover {
+            background: #f8fafc;
+            border-color: #94a3b8;
+            box-shadow: 0 3px 10px rgba(15, 23, 42, 0.08);
+            filter: none;
+        }
+
+        .btn:focus-visible {
+            outline: 2px solid #5c78ff;
+            outline-offset: 2px;
+        }
+
+        .btn svg {
+            width: 15px;
+            height: 15px;
+            stroke-width: 2.2;
+        }
+
+        /* Table Toolbar */
+        .table-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .table-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #18355e;
+            letter-spacing: -0.2px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 860px;
+            text-align: left;
+        }
+
+        thead th {
+            font-size: 11.5px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #475569;
+            background: #f8fafc;
+            padding: 12px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #334155;
+            font-size: 13px;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #fafcff;
+        }
+
+        tbody tr:hover {
+            background: #f1f5f9;
+        }
+
+        .col-id {
+            width: 48px;
+            font-weight: 500;
+            color: #64748b;
+        }
+
+        .col-actions {
+            width: 60px;
+            text-align: center;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 11.5px;
+            font-weight: 500;
+        }
+
+        .pill.pill-male {
+            background: #e0f2fe;
+            color: #0369a1;
+            border: 1px solid #bae6fd;
+        }
+
+        .pill.pill-female {
+            background: #fce7f3;
+            color: #be185d;
+            border: 1px solid #fbcfe8;
+        }
+
+        .del-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            display: inline-grid;
+            place-items: center;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: all 0.18s ease;
+        }
+
+        .del-btn:hover {
+            background: #fef2f2;
+            border-color: #fecaca;
+            color: #dc2626;
+        }
+
+        .del-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        @media (max-width: 640px) {
+            .upload-bottom-actions {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .upload-bottom-actions .btn {
+                width: 100%;
+            }
+
+            .selected-file-chip {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .bullets {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 680px) {
+            table {
+                min-width: 0;
+            }
+
+            thead {
+                display: none;
+            }
+
+            tbody,
+            tr,
+            td {
+                display: block;
+                width: 100%;
+            }
+
+            tbody tr {
+                border-bottom: 1px solid #e2e8f0;
+                background: #fff;
+                padding: 10px 0;
+            }
+
+            tbody td {
+                display: grid;
+                grid-template-columns: 120px 1fr;
+                gap: 8px;
+                padding: 8px 14px;
+                border-bottom: none;
+            }
+
+            tbody td::before {
+                content: attr(data-label);
+                font-size: 11.5px;
+                letter-spacing: 0.04em;
+                color: #64748b;
+                text-transform: uppercase;
+                font-weight: 600;
+                align-self: center;
+            }
+
+            .col-actions {
+                text-align: right;
+            }
+
+            .col-id {
+                display: none;
+            }
+        }
+
+        .footer {
+            margin-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .footer .left,
+        .footer .right {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer .btn {
+            min-width: 110px;
+        }
+
+        /* HEADER / NAVIGATION */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            background: #ffffff;
+            border-bottom: 1px solid #e5eaf2;
+            box-shadow: 0 2px 16px rgba(7, 59, 148, 0.08);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 5%;
+            height: 64px;
+            gap: 32px;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+
+        .header-logo img {
+            height: 60px;
+            width: auto;
+            display: block;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            color: #1a2d4d;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: "Google Sans", sans-serif;
+            text-decoration: none;
+            white-space: nowrap;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: background 0.18s ease, color 0.18s ease;
+        }
+
+        .nav-link:hover,
+        .nav-item:hover > .nav-link {
+            background: #eef4ff;
+            color: #0c4ba4;
+        }
+
+        .nav-link.active {
+            color: #0c4ba4;
+            font-weight: 600;
+        }
+
+        .nav-chevron {
+            width: 14px;
+            height: 14px;
+            opacity: 0.55;
+            transition: transform 0.22s ease;
+        }
+
+        .nav-item:hover > .nav-link .nav-chevron {
+            transform: rotate(180deg);
+            opacity: 1;
+        }
+
+        /* Dropdown panel */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-6px);
+            min-width: 200px;
+            background: #ffffff;
+            border: 1px solid #e2eaf5;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(7, 59, 148, 0.13);
+            padding: 14px 6px 6px;  /* top padding bridges the gap */
+            margin-top: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 200;
+        }
+
+        .nav-item:hover > .dropdown {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            color: #1a2d4d;
+            font-size: 13.5px;
+            font-weight: 400;
+            font-family: "Google Sans", sans-serif;
+            text-decoration: none;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .dropdown-item:hover {
+            background: #eef4ff;
+            color: #0c4ba4;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #e8eef6;
+            margin: 4px 8px;
+        }
+
+        /* User icon button */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .user-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px 6px 6px;
+            border-radius: 50px;
+            background: #f0f5ff;
+            border: 1px solid #d4e1f7;
+            cursor: pointer;
+            transition: background 0.18s ease, border-color 0.18s ease;
+        }
+
+        .user-btn:hover {
+            background: #e0ecff;
+            border-color: #0c4ba4;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #18355e, #5c78ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .user-avatar svg {
+            width: 18px;
+            height: 18px;
+            fill: #ffffff;
+        }
+
+        .user-label {
+            font-size: 13.5px;
+            font-weight: 500;
+            color: #1a2d4d;
+            font-family: "Google Sans", sans-serif;
+        }
+
+        .user-dropdown {
+            right: 0;
+            left: auto;
+            transform: translateX(0) translateY(-6px);
+        }
+
+        .nav-item:hover > .user-dropdown {
+            transform: translateX(0) translateY(0);
+        }
+
+        /*  END HEADER  */
+
+/* MEDICAL DECLARATION */
+
+.medical-declaration {
+    width: 100%;
+    margin-top: 30px;
+    color: #26364b;
+    font-family: "Google Sans", sans-serif;
+}
+
+
+.medical-disclaimer {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    padding: 17px 20px;
+    margin-bottom: 22px;
+    background: #f7f9fc;
+    border: 1px solid #e1e7ef;
+    border-radius: 10px;
+}
+
+.medical-disclaimer .disclaimer-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: #e9eff7;
+    color: #18355e;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.medical-disclaimer p {
+    margin: 0;
+    color: #64748b;
+    font-size: 12.5px;
+    line-height: 1.8;
+}
+
+
+.medical-card {
+    background: #ffffff;
+    border: 1px solid #e1e7ef;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(24, 53, 94, 0.04);
+}
+
+
+.medical-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 22px;
+    border-bottom: 1px solid #e8edf3;
+    background: linear-gradient(45deg, #18355e, #5c78ff);
+}
+
+.medical-heading {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.medical-heading-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 19px;
+}
+
+.medical-heading h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+}
+
+.medical-heading p {
+    margin: 4px 0 0;
+    color: #7b8798;
+    font-size: 12.5px;
+    line-height: 1.5;
+}
+
+.medical-required-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 11px;
+    border: 1px solid #e0e7ef;
+    border-radius: 6px;
+    color: #53647a;
+    background: #fafbfd;
+    font-size: 11.5px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.required-dot {
+    width: 7px;
+    height: 7px;
+    background: #18355e;
+    border-radius: 50%;
+}
+
+
+.medical-card-body {
+    padding: 0 24px 24px;
+}
+
+
+.medical-question-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 145px;
+    align-items: center;
+    gap: 20px;
+    padding: 17px 16px;
+    margin: 0 -24px 5px;
+    background: #f5f7fa;
+    border-bottom: 1px solid #e4e9f0;
+    color: #18355e;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+.medical-question-header > span:first-child {
+    padding-left: 8px;
+}
+
+.answer-column-label {
+    text-align: center;
+    color: #68788d;
+    font-size: 12px;
+}
+
+
+.medical-question-list {
+    width: 100%;
+}
+
+.medical-question {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 145px;
+    align-items: center;
+    gap: 20px;
+    min-height: 58px;
+    padding: 10px 16px;
+    border-bottom: 1px solid #edf0f4;
+    transition: background-color 0.15s ease;
+}
+
+.medical-question:last-child {
+    border-bottom: none;
+}
+
+.medical-question:hover {
+    background: #fafbfd;
+}
+
+.medical-question label {
+    color: #37465a;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.65;
+    cursor: pointer;
+}
+
+
+.medical-select {
+    width: 100%;
+    height: 39px;
+    padding: 0 34px 0 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #344256;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.15s ease,
+                box-shadow 0.15s ease;
+}
+
+.medical-select:focus {
+    border-color: #18355e;
+    box-shadow: 0 0 0 3px rgba(24, 53, 94, 0.09);
+}
+
+.medical-select:has(option:checked[value="No"]) {
+    border-color: #a8cdb3;
+}
+
+.medical-select option {
+    color: #344256;
+    background: #ffffff;
+}
+
+
+.medical-report-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 15px 17px;
+    margin-top: 20px;
+    border: 1px solid #e0e7ef;
+    border-radius: 8px;
+    background: #f8fafc;
+}
+
+.report-notice-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 7px;
+    background: linear-gradient(45deg, #18355e, #5c78ff);
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.medical-report-notice p {
+    margin: 0;
+    color: #65748a;
+    font-size: 12.5px;
+    line-height: 1.8;
+}
+
+.medical-report-notice strong {
+    color: #18355e;
+    font-weight: 700;
+}
+
+
+.medical-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 28px;
+}
+
+.medical-next-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    min-width: 138px;
+    min-height: 42px;
+    padding: 0 17px;
+    border: 1px solid #18355e;
+    border-radius: 6px;
+    background: linear-gradient(45deg, #18355e, #5c78ff);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.18s ease,
+                border-color 0.18s ease;
+}
+
+.medical-next-btn:hover {
+    background: #254875;
+    border-color: #254875;
+}
+
+.medical-next-btn:focus-visible {
+    outline: 2px solid #18355e;
+    outline-offset: 3px;
+}
+
+.medical-next-btn i {
+    font-size: 13px;
+}
+
+
+@media (max-width: 640px) {
+    .medical-declaration {
+        margin-top: 20px;
+    }
+
+    .medical-disclaimer {
+        padding: 14px;
+        gap: 10px;
+    }
+
+    .medical-disclaimer p,
+    .medical-report-notice p {
+        font-size: 12px;
+    }
+
+    .medical-card-header {
+        padding: 16px;
+        align-items: flex-start;
+    }
+
+    .medical-heading {
+        gap: 10px;
+    }
+
+    .medical-heading-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+    }
+
+    .medical-heading h2 {
+        font-size: 15px;
+    }
+
+    .medical-heading p {
+        font-size: 11.5px;
+    }
+
+    .medical-required-badge {
+        padding: 6px 8px;
+        font-size: 10px;
+    }
+
+    .medical-card-body {
+        padding: 0 14px 16px;
+    }
+
+    .medical-question-header {
+        grid-template-columns: minmax(0, 1fr) 90px;
+        gap: 10px;
+        padding: 14px 8px;
+        margin: 0 -14px 4px;
+        font-size: 12px;
+    }
+
+    .medical-question-header > span:first-child {
+        padding-left: 4px;
+    }
+
+    .medical-question {
+        grid-template-columns: minmax(0, 1fr) 90px;
+        gap: 10px;
+        padding: 12px 4px;
+        min-height: 56px;
+    }
+
+    .medical-question label {
+        font-size: 12px;
+    }
+
+    .medical-select {
+        height: 37px;
+        padding-left: 8px;
+        padding-right: 20px;
+        font-size: 12px;
+    }
+
+    .medical-report-notice {
+        padding: 12px;
+        gap: 9px;
+    }
+
+    .medical-navigation {
+        margin-top: 20px;
+    }
+
+    .medical-next-btn {
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 380px) {
+    .medical-required-badge {
+        gap: 5px;
+    }
+
+    .medical-question-header {
+        grid-template-columns: minmax(0, 1fr) 75px;
+    }
+
+    .medical-question {
+        grid-template-columns: minmax(0, 1fr) 75px;
+        gap: 7px;
+    }
+}
+
+.nav-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    display: block;
+    color: #5c78ff;
+}
+
+/* Footer */
+    .site-footer {
+      border-top: 1px solid #e2e8f0;
+      background: #ffffff;
+      padding: 24px 0;
+      margin-top: auto;
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+
+    .footer-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .footer-links a:hover {
+      color: #2563eb;
+    }
+
+    </style>
+</head>
+
+<body>
+    <header class="site-header" role="banner">
+    <div class="header-inner">
+  
+      <!-- Logo -->
+      <a href="#" class="header-logo" aria-label="ADNIC Home">
+        <img src="https://res.cloudinary.com/ddvts796m/image/upload/v1792471750/adnic-logo_hj4bpx.png" alt="ADNIC Logo">
+      </a>
+  
+      <!-- Primary Navigation -->
+      <nav aria-label="Primary navigation">
+        <ul class="header-nav">
+  
+          <!-- Home -->
+          <li class="nav-item">
+            <a href="#" class="nav-link active" id="nav-home">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m3 10 9-7 9 7" />
+                <path d="M5 9v12h14V9" />
+                <path d="M9 21v-7h6v7" />
+              </svg>Home</a>
+          </li>
+  
+          <!-- Quotation -->
+          <li class="nav-item">
+            <button class="nav-link" id="nav-quotation" aria-haspopup="true" aria-expanded="false">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <path d="M14 2v6h6" />
+                <path d="M8 13h8M8 17h8" />
+              </svg>Quotation
+              <svg class="nav-chevron" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="dropdown" role="menu">
+              <a href="#" class="dropdown-item" role="menuitem">New Quotation</a>
+              <a href="#" class="dropdown-item" role="menuitem">My Quotations</a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item" role="menuitem">Compare Plans</a>
+            </div>
+          </li>
+  
+          <!-- Report -->
+          <li class="nav-item">
+            <button class="nav-link" id="nav-report" aria-haspopup="true" aria-expanded="false">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 3v18h18" />
+                <path d="m7 14 4-4 4 4 6-7" />
+              </svg>Report
+              <svg class="nav-chevron" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="dropdown" role="menu">
+              <a href="#" class="dropdown-item" role="menuitem">Claims Report</a>
+              <a href="#" class="dropdown-item" role="menuitem">Policy Report</a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item" role="menuitem">Analytics</a>
+            </div>
+          </li>
+  
+          <!-- Enrollment -->
+          <li class="nav-item">
+            <button class="nav-link" id="nav-enrollment" aria-haspopup="true" aria-expanded="false">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="10" cy="7" r="4" />
+                <path d="M20 8v6M17 11h6" />
+              </svg>Enrollment
+              <svg class="nav-chevron" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="dropdown" role="menu">
+              <a href="#" class="dropdown-item" role="menuitem">New Enrollment</a>
+              <a href="#" class="dropdown-item" role="menuitem">Pending Members</a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item" role="menuitem">Approved Members</a>
+            </div>
+          </li>
+  
+          <!-- Download -->
+          <li class="nav-item">
+            <button class="nav-link" id="nav-download" aria-haspopup="true" aria-expanded="false">
+              <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <path d="m7 10 5 5 5-5M12 15V3" />
+              </svg>Download
+              <svg class="nav-chevron" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+            <div class="dropdown" role="menu">
+              <a href="#" class="dropdown-item" role="menuitem">Policy Documents</a>
+              <a href="#" class="dropdown-item" role="menuitem">DHA</a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item" role="menuitem">DOH</a>
+            </div>
+          </li>
+  
+        </ul>
+      </nav>
+  
+      <!-- User Icon -->
+      <div class="header-actions">
+        <div class="nav-item">
+          <button class="user-btn" id="nav-user" aria-haspopup="true" aria-expanded="false"
+            aria-label="User account menu">
+            <div class="user-avatar">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path
+                  d="M12 12c2.97 0 5.4-2.43 5.4-5.4S14.97 1.2 12 1.2 6.6 3.63 6.6 6.6 9.03 12 12 12zm0 2.7c-3.6 0-10.8 1.8-10.8 5.4v2.7h21.6v-2.7c0-3.6-7.2-5.4-10.8-5.4z" />
+              </svg>
+            </div>
+            <span class="user-label">My Account</span>
+            <svg class="nav-chevron" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true">
+              <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+          <div class="dropdown user-dropdown" role="menu">
+            <a href="#" class="dropdown-item" role="menuitem">Profile</a>
+            <a href="#" class="dropdown-item" role="menuitem">Settings</a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item" role="menuitem">Sign Out</a>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </header>
+
+    <div class="container">
+        <!-- Product Guidelines Card -->
+        <section class="card">
+            <div class="head">
+                <h2>
+                    <i class="fa-solid fa-circle-info"></i>
+                    Product Guidelines
+                </h2>
+            </div>
+            <div class="body">
+                <ul class="bullets">
+                    <li>Upload members with format [*Relation, *Gender, *DOB, *Salary Type, *Visa Location, *Category, *Marital Status].</li>
+                    <li>A group with minimum 26 employees and with minimum 50 members (Employees + Dependents), can now choose 5 categories under enhanced plan + 1 EBP category.</li>
+                    <li>Maximum 5 Enhanced + 1 EBP Categories allowed.</li>
+                    <li>Minimum 11 members in a group with 5 employees.</li>
+                    <li>Minimum 5 employees upto a maximum of 150 members.</li>
+                    <li>Excel Sheet Name should be 'Sheet1'.</li>
+                    <li>Members with age 65  and above will be subject to Medical Underwriting.</li>
+                    <li>Date Of Birth Format Should be ('DD-MMM-YYYY' [Eg: 01-Jan-2000] or 'DD-MMM-YY' [Eg: 01-Jan-00] or 'D-MMM-YYYY' [Eg: 1-Jan-2000] or 'D-MMM-YY' [Eg: 1-Jan-00]).</li>
+                    <li>For sample sheet <a href="#sample-sheet">click here</a> to download.</li>
+                </ul>
+                <div class="note-banner">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                    <span>Load <strong>'MemberUpload.xls'</strong> OR 'Save As' existing excel in <strong>.xls</strong> format to upload the data.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unified Members & Upload Card (Combined, Not Separate) -->
+        <section class="card">
+            <div class="head">
+                <h2>
+                    <i class="fa-solid fa-user-group"></i>
+                    Enrolled Members
+                </h2>
+                <span class="head-badge" id="memberCountBadge">2 Members Enrolled</span>
+            </div>
+            <div class="body">
+                <!-- Integrated Upload Bar Directly in the Card -->
+                <div class="upload-integrated" id="dropzone" role="region" aria-label="Upload Member Census file">
+                    <input type="file" id="fileUploadInput" class="file-input-hidden" accept=".xls,.xlsx" />
+                    
+                    <div class="upload-cloud-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+                            <path d="M12 12v9" />
+                            <path d="m8 16 4-4 4 4" />
+                        </svg>
+                    </div>
+
+                    <h4 class="upload-drop-title">Drag &amp; drop your Excel file here</h4>
+                    <p class="upload-drop-subtitle">Supported formats: <strong>.xls, .xlsx</strong> • Sheet name: <strong>'Loader'</strong> • Max size: <strong>10MB</strong></p>
+
+                    <div class="selected-file-chip" id="fileChip">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                        </svg>
+                        <span class="file-chip-name" id="fileName">No file selected</span>
+                        <button type="button" class="btn-remove-file" id="btnRemoveFile" title="Remove file" aria-label="Remove selected file">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="upload-bottom-actions">
+                        <button class="btn secondary" type="button" id="btnBrowseProxy">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                            Select File
+                        </button>
+                        <button class="btn" type="button" id="btnUploadSubmit">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="17 8 12 3 7 8" />
+                                <line x1="12" y1="3" x2="12" y2="15" />
+                            </svg>
+                            Upload
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Table Header Toolbar -->
+                <div class="table-toolbar">
+                    <h3 class="table-title">Members List</h3>
+                    <button class="btn secondary" type="button" id="btnClearAll" style="padding: 6px 14px; font-size: 12px;">Clear All</button>
+                </div>
+
+                <!-- Members Table -->
+                <div class="table-wrap" role="region" aria-label="Member table" tabindex="0">
+                    <table id="membersTable">
+                        <thead>
+                            <tr>
+                                <th class="col-id">#</th>
+                                <th>Relation</th>
+                                <th>Gender</th>
+                                <th>D.O.B.</th>
+                                <th>Salary Type</th>
+                                <th>Visa Location</th>
+                                <th>Category</th>
+                                <th>Marital Status</th>
+                                <th class="col-actions">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="col-id" data-label="#">1</td>
+                                <td data-label="Relation">Employee</td>
+                                <td data-label="Gender"><span class="pill pill-male">Male</span></td>
+                                <td data-label="D.O.B.">01-Aug-2003</td>
+                                <td data-label="Salary Type">Enhanced</td>
+                                <td data-label="Visa Location">DXB</td>
+                                <td data-label="Category">CEA A</td>
+                                <td data-label="Marital Status">Married</td>
+                                <td class="col-actions" data-label="Actions">
+                                    <button class="del-btn" aria-label="Delete row" title="Delete row">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="3 6 5 6 21 6" />
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                            <line x1="10" y1="11" x2="10" y2="17" />
+                                            <line x1="14" y1="11" x2="14" y2="17" />
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-id" data-label="#">2</td>
+                                <td data-label="Relation">Employee</td>
+                                <td data-label="Gender"><span class="pill pill-male">Male</span></td>
+                                <td data-label="D.O.B.">08-Aug-2003</td>
+                                <td data-label="Salary Type">Enhanced</td>
+                                <td data-label="Visa Location">DXB</td>
+                                <td data-label="Category">CEA A</td>
+                                <td data-label="Marital Status">Married</td>
+                                <td class="col-actions" data-label="Actions">
+                                    <button class="del-btn" aria-label="Delete row" title="Delete row">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="3 6 5 6 21 6" />
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                            <line x1="10" y1="11" x2="10" y2="17" />
+                                            <line x1="14" y1="11" x2="14" y2="17" />
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Navigation -->
+        <footer class="footer">
+            <div class="left">
+                <button class="btn secondary" type="button">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12" />
+                        <polyline points="12 19 5 12 12 5" />
+                    </svg>
+                    Back
+                </button>
+            </div>
+            <div class="right">
+                <button class="btn" type="button">
+                    Next
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                </button>
+            </div>
+        </footer>
+
+        <!-- Medical Declaration Section -->
+        <section class="medical-declaration">
+
+            <div class="medical-disclaimer">
+                <div class="disclaimer-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <p>
+                    In order to apply for this insurance, please complete all parts of this proposal and annexures, if any. The insurance cover begins when ADNIC confirms the same in writing. You must provide full and true ansers to all questions listed below. Material facts which you know or ought to know should be fully disclosed. Failing to do so, may result in the insurance cover not protecting you in the event of a claim and the policy issued may be: cancelled from inception or Altered with revised terms or Non payment of claims related to non disclosed information
+                </p>
+            </div>
+
+            <div class="medical-card">
+
+                <div class="medical-card-header">
+                    <div class="medical-heading">
+                        <div class="medical-heading-icon">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                        <div>
+                            <h2>Medical Declaration</h2>
+                        </div>
+                    </div>
+
+                    <span class="medical-required-badge">
+                        <span class="required-dot"></span>
+                        Required
+                    </span>
+                </div>
+
+                <div class="medical-card-body">
+
+                    <div class="medical-question-header">
+                        <span>Do any members in the scheme suffer from any
+                            of the illnesses listed below?</span>
+                        <span class="answer-column-label">Yes / No</span>
+                    </div>
+
+                    <div class="medical-question-list">
+
+                        <div class="medical-question">
+                            <label for="medical-cancer">Cancers (any type) / Tumors</label>
+                            <select id="medical-cancer" name="medical_cancer" class="medical-select">
+                                <option value="No" selected>No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="medical-question">
+                            <label for="medical-paralysis">Paralysis / Coma</label>
+                            <select id="medical-paralysis" name="medical_paralysis" class="medical-select">
+                                <option value="No" selected>No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="medical-question">
+                            <label for="medical-ms">Multiple Sclerosis</label>
+                            <select id="medical-ms" name="medical_ms" class="medical-select">
+                                <option value="No" selected>No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="medical-question">
+                            <label for="medical-nicu">
+                                Currently admitted in NICU or other current
+                                in-patient hospitalization
+                            </label>
+                            <select id="medical-nicu" name="medical_nicu" class="medical-select">
+                                <option value="No" selected>No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="medical-question">
+                            <label for="medical-heart">
+                                Heart ailments requiring Coronary Artery Bypass Surgery
+                            </label>
+                            <select id="medical-heart" name="medical_heart" class="medical-select">
+                                <option value="No" selected>No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="medical-question">
+                            <label for="medical-organ">Organ Failure</label>
+                            <select id="medical-organ" name="medical_organ" class="medical-select">
+                                <option value="No" selected>No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="medical-question">
+                            <label for="medical-end-stage">
+                                End Stage Kidney / Lung / Liver Disease
+                            </label>
+                            <select id="medical-end-stage" name="medical_end_stage" class="medical-select">
+                                <option value="No" selected>No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="medical-question">
+                            <label for="medical-anemia">Aplastic Anemia</label>
+                            <select id="medical-anemia" name="medical_anemia" class="medical-select">
+                                <option value="No" selected>No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="medical-report-notice">
+                        <div class="report-notice-icon">
+                            <i class="fa-solid fa-file-medical"></i>
+                        </div>
+                        <p>
+                            If you answered <strong>Yes</strong> to any of the
+                            questions above, please provide the latest medical report
+                            for the related medical condition. Premiums may be revised
+                            based on your declaration and the review of the member's
+                            medical report(s).
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="medical-navigation">
+                <a href="../ProductDetails/index.html">
+                    <button type="button" class="medical-next-btn">
+                        <span>Next</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </a>
+            </div>
+
+        </section>
+    </div>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-inner">
+            <div>
+                © 2026 Abu Dhabi National Insurance Company (ADNIC). All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
