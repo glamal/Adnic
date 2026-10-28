@@ -770,7 +770,7 @@
 /* Mobile */
 @media (max-width: 760px) {
     .business-section {
-        padding: 24px 14px;
+        /* padding: 24px 14px; */
     }
 
     .business-header {
@@ -785,6 +785,7 @@
         grid-template-columns: 1fr;
         padding: 12px;
         border-radius: 16px;
+        padding-top: 15px;
     }
 
     .business-grid {
@@ -807,6 +808,11 @@
 
     .next-button {
         width: 100%;
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: column;
     }
 }
 
@@ -1124,6 +1130,301 @@
 
         /* ===== END HEADER ===== */
 
+        /* ===== MOBILE NAV ===== */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #f0f5ff;
+            border: 1px solid #d4e1f7;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background 0.2s ease, border-color 0.2s ease;
+            position: relative;
+            z-index: 1100;
+        }
+
+        .mobile-menu-btn:hover {
+            background: #e0ecff;
+            border-color: #0c4ba4;
+        }
+
+        .mobile-menu-btn .bar {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: #18355e;
+            border-radius: 2px;
+            transition: transform 0.35s ease, opacity 0.25s ease, width 0.25s ease;
+            transform-origin: center;
+        }
+
+        .mobile-menu-btn .bar:not(:last-child) {
+            margin-bottom: 5px;
+        }
+
+        .mobile-menu-btn.is-open .bar:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .mobile-menu-btn.is-open .bar:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .mobile-menu-btn.is-open .bar:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* Overlay */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 20, 55, 0.48);
+            z-index: 1050;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        /* Drawer */
+        .mobile-nav-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: min(340px, 88vw);
+            background: #ffffff;
+            box-shadow: -8px 0 40px rgba(7, 59, 148, 0.14);
+            z-index: 1060;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            overflow-x: hidden;
+            transform: translateX(100%);
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e8eef6;
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            z-index: 10;
+        }
+
+        .mobile-nav-header .mnav-logo img {
+            height: 48px;
+            width: auto;
+        }
+
+        .mobile-nav-close {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: #f0f5ff;
+            border: 1px solid #d4e1f7;
+            cursor: pointer;
+            transition: background 0.18s ease;
+        }
+
+        .mobile-nav-close:hover {
+            background: #e0ecff;
+        }
+
+        .mobile-nav-close svg {
+            width: 18px;
+            height: 18px;
+            stroke: #18355e;
+        }
+
+        .mobile-nav-body {
+            flex: 1;
+            padding: 12px 12px 24px;
+        }
+
+        /* Mobile nav items */
+        .mnav-item {
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 4px;
+        }
+
+        .mnav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 13px 16px;
+            border-radius: 10px;
+            color: #1a2d4d;
+            font-size: 15px;
+            font-weight: 500;
+            font-family: "Google Sans", sans-serif;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: background 0.18s ease, color 0.18s ease;
+            text-align: left;
+        }
+
+        .mnav-link:hover,
+        .mnav-link.is-active-link {
+            background: #eef4ff;
+            color: #0c4ba4;
+        }
+
+        .mnav-link.active {
+            color: #0c4ba4;
+            font-weight: 600;
+        }
+
+        .mnav-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            color: #5c78ff;
+        }
+
+        .mnav-text {
+            flex: 1;
+        }
+
+        .mnav-chevron {
+            width: 16px;
+            height: 16px;
+            opacity: 0.55;
+            transition: transform 0.28s cubic-bezier(.4, 0, .2, 1);
+            flex-shrink: 0;
+        }
+
+        .mnav-item.is-open > .mnav-link .mnav-chevron {
+            transform: rotate(180deg);
+            opacity: 1;
+        }
+
+        /* Accordion sub-menu */
+        .mnav-submenu {
+            overflow: hidden;
+            height: 0;
+            background: #f7faff;
+            border-radius: 8px;
+            margin: 0 6px 4px;
+        }
+
+        .mnav-submenu-inner {
+            padding: 6px 8px 10px;
+        }
+
+        .mnav-sub-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            color: #1a2d4d;
+            font-size: 13.5px;
+            font-weight: 400;
+            font-family: "Google Sans", sans-serif;
+            text-decoration: none;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .mnav-sub-link:hover {
+            background: #dce9ff;
+            color: #0c4ba4;
+        }
+
+        .mnav-sub-divider {
+            height: 1px;
+            background: #e8eef6;
+            margin: 4px 8px;
+        }
+
+        /* Mobile user section */
+        .mobile-nav-user {
+            padding: 14px 12px 0;
+            border-top: 1px solid #e8eef6;
+            margin-top: 8px;
+        }
+
+        .mnav-user-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, #eef4ff, #f7f2ff);
+            border-radius: 12px;
+            border: 1px solid #d4e1f7;
+            margin-bottom: 8px;
+        }
+
+        .mnav-user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #18355e, #5c78ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mnav-user-avatar svg {
+            width: 20px;
+            height: 20px;
+            fill: #ffffff;
+        }
+
+        .mnav-user-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .mnav-user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a2d4d;
+            font-family: "Google Sans", sans-serif;
+        }
+
+        .mnav-user-role {
+            font-size: 12px;
+            color: #6b7c9a;
+            font-family: "Google Sans", sans-serif;
+        }
+
+        /* Responsive breakpoint */
+        @media (max-width: 860px) {
+            .header-nav,
+            nav[aria-label="Primary navigation"],
+            .header-actions {
+                display: none !important;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .mobile-nav-overlay {
+                /* display: block; */
+            }
+        }
+
+        /* ===== END MOBILE NAV ===== */
+
         /* Corporate Footer */
     .site-footer {
       border-top: 1px solid #e2e8f0;
@@ -1168,6 +1469,13 @@
       <a href="#" class="header-logo" aria-label="ADNIC Home">
         <img src="https://res.cloudinary.com/ddvts796m/image/upload/v1792471750/adnic-logo_hj4bpx.png" alt="ADNIC Logo">
       </a>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileNavDrawer">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
   
       <!-- Primary Navigation -->
       <nav aria-label="Primary navigation">
@@ -1306,6 +1614,148 @@
   
     </div>
   </header>
+
+  <!-- ===== MOBILE NAV OVERLAY ===== -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay" aria-hidden="true"></div>
+
+  <!-- ===== MOBILE NAV DRAWER ===== -->
+  <nav class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile navigation" aria-hidden="true">
+
+    <!-- Drawer Header -->
+    <div class="mobile-nav-header">
+      <a href="#" class="mnav-logo" aria-label="ADNIC Home">
+        <img src="https://res.cloudinary.com/ddvts796m/image/upload/v1792471750/adnic-logo_hj4bpx.png" alt="ADNIC Logo">
+      </a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close navigation">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Drawer Body -->
+    <div class="mobile-nav-body">
+
+      <!-- Home -->
+      <div class="mnav-item" data-mnav-item>
+        <a href="#" class="mnav-link active" aria-label="Home">
+          <svg class="mnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9"/><path d="M9 21v-7h6v7"/>
+          </svg>
+          <span class="mnav-text">Home</span>
+        </a>
+      </div>
+
+      <!-- Quotation -->
+      <div class="mnav-item" data-mnav-item>
+        <button class="mnav-link" data-mnav-toggle aria-expanded="false">
+          <svg class="mnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6"/><path d="M8 13h8M8 17h8"/>
+          </svg>
+          <span class="mnav-text">Quotation</span>
+          <svg class="mnav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="mnav-submenu" data-mnav-submenu>
+          <div class="mnav-submenu-inner">
+            <a href="#" class="mnav-sub-link">New Quotation</a>
+            <a href="#" class="mnav-sub-link">My Quotations</a>
+            <div class="mnav-sub-divider"></div>
+            <a href="#" class="mnav-sub-link">Compare Plans</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Report -->
+      <div class="mnav-item" data-mnav-item>
+        <button class="mnav-link" data-mnav-toggle aria-expanded="false">
+          <svg class="mnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 3v18h18"/><path d="m7 14 4-4 4 4 6-7"/>
+          </svg>
+          <span class="mnav-text">Report</span>
+          <svg class="mnav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="mnav-submenu" data-mnav-submenu>
+          <div class="mnav-submenu-inner">
+            <a href="#" class="mnav-sub-link">Claims Report</a>
+            <a href="#" class="mnav-sub-link">Policy Report</a>
+            <div class="mnav-sub-divider"></div>
+            <a href="#" class="mnav-sub-link">Analytics</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enrollment -->
+      <div class="mnav-item" data-mnav-item>
+        <button class="mnav-link" data-mnav-toggle aria-expanded="false">
+          <svg class="mnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="10" cy="7" r="4"/>
+            <path d="M20 8v6M17 11h6"/>
+          </svg>
+          <span class="mnav-text">Enrollment</span>
+          <svg class="mnav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="mnav-submenu" data-mnav-submenu>
+          <div class="mnav-submenu-inner">
+            <a href="#" class="mnav-sub-link">New Enrollment</a>
+            <a href="#" class="mnav-sub-link">Pending Members</a>
+            <div class="mnav-sub-divider"></div>
+            <a href="#" class="mnav-sub-link">Approved Members</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Download -->
+      <div class="mnav-item" data-mnav-item>
+        <button class="mnav-link" data-mnav-toggle aria-expanded="false">
+          <svg class="mnav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <path d="m7 10 5 5 5-5M12 15V3"/>
+          </svg>
+          <span class="mnav-text">Download</span>
+          <svg class="mnav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="mnav-submenu" data-mnav-submenu>
+          <div class="mnav-submenu-inner">
+            <a href="#" class="mnav-sub-link">Policy Documents</a>
+            <a href="#" class="mnav-sub-link">DHA</a>
+            <div class="mnav-sub-divider"></div>
+            <a href="#" class="mnav-sub-link">DOH</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- User section -->
+      <div class="mobile-nav-user" data-mnav-item>
+        <div class="mnav-user-card">
+          <div class="mnav-user-avatar">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 12c2.97 0 5.4-2.43 5.4-5.4S14.97 1.2 12 1.2 6.6 3.63 6.6 6.6 9.03 12 12 12zm0 2.7c-3.6 0-10.8 1.8-10.8 5.4v2.7h21.6v-2.7c0-3.6-7.2-5.4-10.8-5.4z"/>
+            </svg>
+          </div>
+          <div class="mnav-user-info">
+            <span class="mnav-user-name">My Account</span>
+            <span class="mnav-user-role">Broker 1</span>
+          </div>
+        </div>
+        <a href="#" class="mnav-sub-link">Profile</a>
+        <a href="#" class="mnav-sub-link">Settings</a>
+        <div class="mnav-sub-divider"></div>
+        <a href="#" class="mnav-sub-link">Sign Out</a>
+      </div>
+
+    </div>
+  </nav>
+  <!-- ===== END MOBILE NAV DRAWER ===== -->
 
     <div class="member-details-section">
         <section class="welcome-section" aria-label="Member portal welcome banner">
@@ -1497,6 +1947,144 @@
     </div>
   </footer>
     
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const btn        = document.getElementById('mobileMenuBtn');
+      const overlay    = document.getElementById('mobileNavOverlay');
+      const drawer     = document.getElementById('mobileNavDrawer');
+      const closeBtn   = document.getElementById('mobileNavClose');
+      const navItems   = drawer.querySelectorAll('[data-mnav-item]');
+      const toggleBtns = drawer.querySelectorAll('[data-mnav-toggle]');
+
+      let isOpen = false;
+
+      /* ---- helpers ---- */
+      function lockScroll()   { document.body.style.overflow = 'hidden'; }
+      function unlockScroll() { document.body.style.overflow = ''; }
+
+      /* ---- open drawer ---- */
+      function openDrawer() {
+        if (isOpen) return;
+        isOpen = true;
+
+        btn.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        overlay.style.display = 'block';
+        drawer.removeAttribute('aria-hidden');
+        lockScroll();
+
+        // Set initial states
+        gsap.set(drawer,    { x: '100%' });
+        gsap.set(overlay,   { opacity: 0 });
+        gsap.set(navItems,  { x: 30, opacity: 0 });
+
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+        // 1. Slide overlay in
+        tl.to(overlay, { opacity: 1, duration: 0.3 });
+
+        // 2. Slide drawer in simultaneously
+        tl.to(drawer, { x: '0%', duration: 0.45, ease: 'power4.out' }, '<');
+
+        // 3. Stagger nav items
+        tl.to(navItems, {
+          x: 0,
+          opacity: 1,
+          duration: 0.38,
+          stagger: 0.07,
+          ease: 'back.out(1.4)'
+        }, '-=0.18');
+      }
+
+      /* ---- close drawer ---- */
+      function closeDrawer() {
+        if (!isOpen) return;
+        isOpen = false;
+
+        btn.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        drawer.setAttribute('aria-hidden', 'true');
+
+        const tl = gsap.timeline({
+          defaults: { ease: 'power3.in' },
+          onComplete: () => {
+            overlay.style.display = 'none';
+            unlockScroll();
+          }
+        });
+
+        tl.to(navItems, { x: 20, opacity: 0, duration: 0.22, stagger: 0.04 });
+        tl.to(drawer,   { x: '100%', duration: 0.38 }, '-=0.12');
+        tl.to(overlay,  { opacity: 0, duration: 0.3 }, '<');
+      }
+
+      /* ---- accordion submenu ---- */
+      function toggleSubmenu(toggleBtn) {
+        const item    = toggleBtn.closest('[data-mnav-item]');
+        const submenu = item.querySelector('[data-mnav-submenu]');
+        if (!submenu) return;
+
+        const isExpanded = item.classList.contains('is-open');
+
+        // Close all others
+        document.querySelectorAll('[data-mnav-item].is-open').forEach(openItem => {
+          if (openItem === item) return;
+          const osub = openItem.querySelector('[data-mnav-submenu]');
+          openItem.classList.remove('is-open');
+          openItem.querySelector('[data-mnav-toggle]').setAttribute('aria-expanded', 'false');
+          gsap.to(osub, { height: 0, duration: 0.3, ease: 'power2.inOut' });
+        });
+
+        if (!isExpanded) {
+          item.classList.add('is-open');
+          toggleBtn.setAttribute('aria-expanded', 'true');
+          // measure natural height
+          gsap.set(submenu, { height: 'auto' });
+          const fullH = submenu.scrollHeight;
+          gsap.fromTo(submenu,
+            { height: 0 },
+            { height: fullH, duration: 0.36, ease: 'power2.out' }
+          );
+          // animate sub-links
+          const subLinks = submenu.querySelectorAll('.mnav-sub-link');
+          gsap.fromTo(subLinks,
+            { x: 12, opacity: 0 },
+            { x: 0, opacity: 1, duration: 0.3, stagger: 0.06, ease: 'power2.out', delay: 0.08 }
+          );
+        } else {
+          item.classList.remove('is-open');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+          gsap.to(submenu, { height: 0, duration: 0.3, ease: 'power2.inOut' });
+        }
+      }
+
+      /* ---- event listeners ---- */
+      btn.addEventListener('click', openDrawer);
+      closeBtn.addEventListener('click', closeDrawer);
+      overlay.addEventListener('click', closeDrawer);
+
+      toggleBtns.forEach(tb => {
+        tb.addEventListener('click', () => toggleSubmenu(tb));
+      });
+
+      // Close on Escape
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && isOpen) closeDrawer();
+      });
+
+      // Reset on resize to desktop
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 860 && isOpen) {
+          closeDrawer();
+        }
+      });
+    })();
+  </script>
 
 </body>
 </html>
